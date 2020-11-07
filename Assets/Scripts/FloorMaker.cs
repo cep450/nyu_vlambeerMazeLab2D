@@ -12,25 +12,51 @@ public class FloorMaker : MonoBehaviour {
 
 //	DECLARE CLASS MEMBER VARIABLES:
 //	Declare a private integer called myCounter that starts at 0; 		// count how many floor tiles this FloorMaker has instantiated
+	private int myCounter;
 //	Declare a public Transform called floorPrefab, assign the prefab in inspector;
+	public Transform floorPrefab;
 //	Declare a public Transform called floorMakerPrefab, assign the prefab in inspector; 
+	public Transform floorMakerPrefab;
 
 	void Update () {
 //		If counter is less than 50, then:
+		if(myCounter < 50) {
 //			Generate a random number from 0.0f to 1.0f;
+			float rand = Random.Range(0f, 1f);
 //			If random number is less than 0.25f, then rotate myself 90 degrees on Z axis;
-//				... Else if number is 0.25f-0.5f, then rotate myself -90 degrees on Z axis;
+			if(rand < 0.25f) {
+				transform.Rotate(Vector3.right);
+			} else if(rand < 0.5f) {
+				//... Else if number is 0.25f-0.5f, then rotate myself -90 degrees on Z axis;
+				transform.Rotate(Vector3.left);
+			} else if(rand >= 0.99f) {
+					//Instantiate(floorMakerPrefab, transform.position, transform.rotation);
+					//TODO: transform.rotation... should the new one be the same or should it be a default?
+					//update: documentation says Instantiate creates a duplicate of the original, so,
+					Instantiate(gameObject);
 //				... Else if number is 0.99f-1.0f, then instantiate a floorMakerPrefab clone at my current position;
 //			// end elseIf
+			}
 
 //			Instantiate a floorPrefab clone at current position;
+			Instantiate(floorPrefab, transform.position, transform.rotation);
 //			Move 1 unit "upwards" based on this object's local rotation (e.g. with rotation 0,0,0 "upwards" is (0,1,0)... but with rotation 0,0,180 then "upwards" is (0,-1, 0)... )
+			transform.Translate(Vector2.up);
 //			Increment counter;
+			myCounter++;
+		} else {
 //		Else:
 //			Destroy my game object; 		// self destruct if I've made enough tiles already
-	}
+			Destroy(gameObject);
+		}
 
-} // don't delete, end of FloorMaker class
+
+		//restart button
+		if(Input.GetKeyDown(KeyCode.R)) {
+			//TODO implement restart button 
+		}
+	}
+}
 
 
 // STEP 2: =====================================================================================
@@ -77,6 +103,13 @@ public class FloorMaker : MonoBehaviour {
 // 1. keep a list of all your spawned tiles
 // 2. then calculate the average position of all of them (use a for() loop to go through the whole list) 
 // 3. then move your camera to that averaged center and make sure fieldOfView is wide enough?
+/*
+float greatestX = 0;
+float lowestX = 0;
+float greatestY = 0;
+float lowestY = 0;
+*/
+
 
 // BETTER UI:
 // learn how to use UI Sliders (https://unity3d.com/learn/tutorials/topics/user-interface-ui/ui-slider) 
