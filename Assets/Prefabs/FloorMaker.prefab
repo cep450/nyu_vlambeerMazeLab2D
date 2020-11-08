@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1205195299569171216}
   - component: {fileID: 8526925960506713578}
   - component: {fileID: 6343382058574851184}
+  - component: {fileID: 5043477268543784691}
   m_Layer: 0
   m_Name: FloorMaker
   m_TagString: Untagged
@@ -44,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac5378c783021624995364905960b49e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floorPrefab: {fileID: 0}
+  floorMakerPrefab: {fileID: 0}
 --- !u!212 &6343382058574851184
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -94,3 +97,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5043477268543784691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5676981078076824610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac5378c783021624995364905960b49e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorPrefab: {fileID: 8979439212572352807, guid: 4348ebabc3612614f8c839ff067102c7,
+    type: 3}
+  floorMakerPrefab: {fileID: 1205195299569171216}

@@ -18,22 +18,29 @@ public class FloorMaker : MonoBehaviour {
 //	Declare a public Transform called floorMakerPrefab, assign the prefab in inspector; 
 	public Transform floorMakerPrefab;
 
+	public static int globalTileCount;
+
 	void Update () {
+
+		if(globalTileCount >= 500) {
+			Destroy(gameObject);
+		}
 //		If counter is less than 50, then:
 		if(myCounter < 50) {
 //			Generate a random number from 0.0f to 1.0f;
 			float rand = Random.Range(0f, 1f);
 //			If random number is less than 0.25f, then rotate myself 90 degrees on Z axis;
 			if(rand < 0.25f) {
-				transform.Rotate(Vector3.right);
+				transform.Rotate(0f, 0f, 90f);
 			} else if(rand < 0.5f) {
 				//... Else if number is 0.25f-0.5f, then rotate myself -90 degrees on Z axis;
-				transform.Rotate(Vector3.left);
+				transform.Rotate(0f, 0f, -90f);
 			} else if(rand >= 0.99f) {
 					//Instantiate(floorMakerPrefab, transform.position, transform.rotation);
 					//TODO: transform.rotation... should the new one be the same or should it be a default?
 					//update: documentation says Instantiate creates a duplicate of the original, so,
-					Instantiate(gameObject);
+					//has to be the prefab cause making a copy keeps its counter variables(?)
+					Instantiate(floorMakerPrefab);
 //				... Else if number is 0.99f-1.0f, then instantiate a floorMakerPrefab clone at my current position;
 //			// end elseIf
 			}
@@ -44,40 +51,39 @@ public class FloorMaker : MonoBehaviour {
 			transform.Translate(Vector2.up);
 //			Increment counter;
 			myCounter++;
+			globalTileCount++;
 		} else {
 //		Else:
 //			Destroy my game object; 		// self destruct if I've made enough tiles already
 			Destroy(gameObject);
 		}
 
-
-		//restart button
-		if(Input.GetKeyDown(KeyCode.R)) {
-			//TODO implement restart button 
-		}
 	}
 }
 
+/// means done
+// means not done
 
 // STEP 2: =====================================================================================
 // implement, test, and stabilize the system
 
-//  ADD A RESTART BUTTON TO MAKE IT EASIER TO TEST:
-//  - let us press [R] to reload the scene and see a new level generation
-//  - example: https://github.com/radiatoryang/fall2020_gamedev/blob/master/week05_raycasting/Assets/Scripts/RestartScene.cs
+///  ADD A RESTART BUTTON TO MAKE IT EASIER TO TEST:
+///  - let us press [R] to reload the scene and see a new level generation
+///  - example: https://github.com/radiatoryang/fall2020_gamedev/blob/master/week05_raycasting/Assets/Scripts/RestartScene.cs
+/// ^^^ done in another file, since the FloorMakers destroy themselves
 
 //	IMPLEMENT AND TEST:
-//	- save your scene!!! the code could potentially be infinite / exponential, and crash Unity
+///	- save your scene!!! the code could potentially be infinite / exponential, and crash Unity
 //	- don't forget to configure all prefabs in the inspector
 //  - test and debug!
 
 //	STABILIZE: 
 //	- code it so that all the FloorMakers can only spawn a grand total of 500 tiles in the entire world; how would you do that?
 //  hints:
-//  - declare a "public static int" counter variable called "globalTileCount"
-//  - each time you instantiate a floor tile, increment globalTileCount
-//  - if there are already too many tiles, then self-destruct without spawning new floor tiles... like "if(globalTileCount > 500)" ... "Destroy(gameObject);"
-//  note: a static var will persist beyond scene changes! you have to reset the variable manually when you restart the scene!
+///  - declare a "public static int" counter variable called "globalTileCount"
+///  - each time you instantiate a floor tile, increment globalTileCount
+///  - if there are already too many tiles, then self-destruct without spawning new floor tiles... like "if(globalTileCount > 500)" ... "Destroy(gameObject);"
+///  note: a static var will persist beyond scene changes! you have to reset the variable manually when you restart the scene!
 
 
 // STEP 3: ======================================================================================
