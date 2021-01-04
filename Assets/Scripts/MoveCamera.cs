@@ -7,14 +7,15 @@ public class MoveCamera : MonoBehaviour
 
     //just re-using code from the flatgame
 
-    static float SPEED = 0.05f;
+    static float SPEED = 0.1f;
     static float SPEED_DIAG = SPEED * Mathf.Sin(Mathf.PI / 4) + 0.002f;
 
     bool up, down, left, right = false;
     float effectivespeed;
 
-    // Update is called once per frame
-    void Update()
+    float mouseWheelMultiplier = 0.5f; 
+
+    void FixedUpdate()
     {
 
         up = Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W);
@@ -41,6 +42,12 @@ public class MoveCamera : MonoBehaviour
         if(right) {
             transform.Translate(effectivespeed, 0f, 0f);
         }
+
+        {
+            float mouseVal = Camera.main.orthographicSize + Input.mouseScrollDelta.y * mouseWheelMultiplier;
+            Camera.main.orthographicSize = Mathf.Max(1, mouseVal);
+        }
+        
 
     }
 }
